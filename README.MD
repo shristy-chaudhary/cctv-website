@@ -1,145 +1,158 @@
-CCTV Monitoring Website
-Overview
-This project is a full-stack web application designed for CCTV (Closed-Circuit Television) monitoring. It allows users to register, log in, and manage their video recordings. The frontend is built with React.js, providing a dynamic and responsive user interface, while the backend is powered by Node.js with Express.js, storing user information and recording metadata in a MongoDB database.
+# CCTV Monitoring System
 
-Features
-User Authentication:
-User Registration: Securely register new user accounts.
-User Login: Log in with existing credentials.
-JWT-based Authentication: Secure API endpoints using JSON Web Tokens.
-Recording Management:
-Upload Recordings: (Future: Mechanism to upload video files or links).
-View Recordings: Display a list of recordings associated with the logged-in user.
-Recording Metadata Storage: Store information about recordings (e.g., path, timestamp, associated user).
-Database Integration:
-MongoDB: NoSQL database used for storing user accounts and recording metadata.
-Mongoose: ODM (Object Data Modeling) library for MongoDB in the Node.js backend.
-Responsive Design: (Assuming your React frontend is responsive) A user-friendly interface that adapts to various screen sizes.
-Technologies Used
-Frontend
-React.js: JavaScript library for building user interfaces.
-React Router DOM: For declarative routing in React applications.
-Styled Components: (If you are using it based on earlier code snippets) For styling React components with CSS-in-JS.
-Fetch API (or Axios): For making HTTP requests to the backend.
-Backend
-Node.js: JavaScript runtime environment.
-Express.js: Fast, unopinionated, minimalist web framework for Node.js.
-MongoDB: NoSQL database for data storage.
-Mongoose: MongoDB object data modeling for Node.js.
-bcryptjs: For hashing and salting passwords to ensure secure storage.
-jsonwebtoken (JWT): For implementing token-based authentication.
-CORS: Middleware for enabling Cross-Origin Resource Sharing.
-body-parser: Middleware to parse incoming request bodies.
-Prerequisites
-Before you begin, ensure you have the following installed on your system:
+This project is a web-based CCTV monitoring system that allows users to register, log in, and view their security camera recordings. The application is built with a React frontend and a Node.js/Express backend, utilizing MongoDB for data storage.
 
-Node.js (LTS version recommended)
-npm (comes with Node.js)
-MongoDB Community Server
-MongoDB Compass (Optional, but highly recommended for database management)
-Getting Started
-Follow these steps to get a copy of the project up and running on your local machine for development and testing purposes.
+## Features
 
-1. Clone the Repository
-Bash
+* **User Authentication:** Secure user registration and login functionality using JWT (JSON Web Tokens).
+* **Recording Management:**
+    * Upload new security camera recordings (metadata and file paths).
+    * View a list of recordings associated with the logged-in user.
+* **MongoDB Integration:** Persistent storage of user data and recording metadata.
+* **Responsive Design:** (If applicable, mention if your frontend is responsive)
 
-git clone <your-repository-url>
-cd <your-repository-name>
-2. Backend Setup
-Navigate into the backend directory:
+## Technologies Used
 
-Bash
+**Frontend:**
 
-cd backend
-Install the backend dependencies:
+* **React:** A JavaScript library for building user interfaces.
+* **React Router DOM:** For declarative routing in React applications.
+* **`fetch` API (or `axios`):** For making HTTP requests to the backend.
+* **Styled Components (or other CSS-in-JS/CSS framework):** (Mention if you used any specific styling solution)
 
-Bash
+**Backend:**
 
-npm install
-MongoDB Setup:
+* **Node.js:** A JavaScript runtime environment.
+* **Express.js:** A fast, unopinionated, minimalist web framework for Node.js.
+* **MongoDB:** A NoSQL database for storing user and recording data.
+* **Mongoose:** An ODM (Object Data Modeling) library for MongoDB and Node.js.
+* **`bcryptjs`:** For hashing and comparing passwords securely.
+* **`jsonwebtoken` (JWT):** For implementing token-based authentication.
+* **`cors`:** Node.js middleware for enabling Cross-Origin Resource Sharing.
+* **`body-parser`:** Node.js middleware for parsing incoming request bodies.
 
-Ensure your MongoDB server is running. If not, open your command prompt (as administrator) and start it:
+## Project Structure
 
-Bash
-
-# Navigate to your MongoDB bin directory, e.g.,
-cd "C:\Program Files\MongoDB\Server\<Your_MongoDB_Version>\bin"
-mongod
-(Keep this command prompt window open as long as you want the database server to run.)
-
-The backend will attempt to connect to mongodb://localhost:27017/cctv. The cctv database will be automatically created upon the first data insertion (e.g., a user signup). You can also verify this connection and see the database in MongoDB Compass.
-
-Environment Variables:
-
-You need to set a JWT secret key. Do not hardcode this in production.
-
-Create a .env file in your backend directory (if you plan to use dotenv for environment variables, you'd need to install npm install dotenv and require('dotenv').config(); at the top of server.js). For simplicity in this local setup, you will directly replace the placeholder in server.js.
-
-Open backend/server.js and replace 'your-jwt-secret-key' with a strong, random string (e.g., generated from RandomKeygen).
-
-JavaScript
-
-// Example in server.js
-const token = jwt.sign({ id: user._id }, 'YOUR_VERY_STRONG_AND_SECRET_KEY_HERE');
-// ...
-const decoded = jwt.verify(token, 'YOUR_VERY_STRONG_AND_SECRET_KEY_HERE');
-Start the Backend Server:
-
-Bash
-
-node server.js
-# Or if you named it index.js
-# node index.js
-The server will start on http://localhost:5000.
-
-3. Frontend Setup
-Open a new terminal window and navigate into your React project directory:
-
-Bash
-
-cd ../my-cctv-app # Adjust this path if your frontend is not in 'my-cctv-app'
-Install the frontend dependencies:
-
-Bash
-
-npm install
-Start the Frontend Development Server:
-
-Bash
-
-npm start
-This will open your application in your browser at http://localhost:3000 (or another available port).
-
-Project Structure (Assumed)
-.
 ├── backend/
 │   ├── node_modules/
-│   ├── server.js               # Main backend application file (Express app, MongoDB connection, API endpoints)
 │   ├── package.json
-│   └── ...
-├── my-cctv-app/               # Your React project root
+│   ├── package-lock.json
+│   └── server.js             # Main backend application file
+├── my-cctv-app/              # Your React frontend project
+│   ├── node_modules/
 │   ├── public/
 │   ├── src/
-│   │   ├── components/         # React components (SignIn, SignUp, Dashboard, Recordings, etc.)
-│   │   ├── services/           # API and authentication services
-│   │   │   ├── apiService.js   # Functions for interacting with backend APIs
-│   │   │   └── authService.js  # Functions for authentication logic (e.g., isAuthenticated)
-│   │   ├── App.js              # Main App component with routing
-│   │   ├── index.js
-│   │   └── ...
-│   ├── node_modules/
+│   │   ├── components/       # React components (e.g., SignIn, Dashboard, Recordings)
+│   │   ├── services/         # API and authentication service files (apiService.js, authService.js)
+│   │   ├── App.js            # Main React application component
+│   │   └── index.js          # React entry point
 │   ├── package.json
-│   └── ...
-└── README.md
-Usage
-Register: Navigate to the /signup route (or your registration page) and create a new user account.
-Log In: Go to the /signin route (or your login page) and log in with your registered credentials.
-Access Dashboard: Upon successful login, you will be redirected to the dashboard, where you can view and (eventually) upload recordings.
-Future Enhancements
-Actual Video Streaming/Storage: Integrate with cloud storage solutions (e.g., AWS S3, Google Cloud Storage) for storing actual video files and implementing video playback.
-Live Stream Integration: Connect to actual CCTV camera feeds for live viewing.
-User Roles/Permissions: Implement different user roles (e.g., admin, regular user).
-Improved UI/UX: Enhance the user interface and user experience.
-Real-time Notifications: Add real-time alerts for motion detection or other events.
-Advanced Analytics: Implement features for analyzing recording data.
-Dockerization: Containerize the application for easier deployment.
+│   └── ...other-frontend-file
+----  Readme file
+
+
+## Getting Started
+
+Follow these instructions to set up and run the project locally.
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed on your system:
+
+* **Node.js & npm:**
+    * Download and install from [nodejs.org](https://nodejs.org/).
+    * Verify installation: `node -v` and `npm -v`
+* **MongoDB:**
+    * Download and install the Community Server from [mongodb.com/try/download/community](https://www.mongodb.com/try/download/community).
+    * Ensure MongoDB is running. You can typically start it by running `mongod` in your terminal.
+    * Create the default data directory:
+        * **Windows:** `C:\data\db` (create these folders if they don't exist)
+        * **macOS/Linux:** `/data/db` (create and ensure correct permissions: `sudo mkdir -p /data/db` and `sudo chown -R $(whoami) /data/db`)
+* **MongoDB Compass (Optional but Recommended):** A GUI tool for interacting with your MongoDB database. Download from [mongodb.com/products/compass](https://www.mongodb.com/products/compass).
+
+### Backend Setup
+
+1.  **Navigate to the backend directory:**
+    ```bash
+    cd backend
+    ```
+2.  **Install backend dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Create your JWT Secret Key:**
+    * **Crucial Security Step:** Generate a strong, random string to use as your JWT secret key. This should be at least 32 characters long and include a mix of uppercase, lowercase, numbers, and symbols.
+    * **Example Generation (in Node.js console):**
+        ```bash
+        node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+        ```
+    * **Set as Environment Variable:** **Do NOT hardcode this in `server.js` for production.** For local development, you can temporarily replace `'your-jwt-secret-key'` in `server.js` with the generated key. For better practice, use a `.env` file (install `dotenv` package: `npm install dotenv` and load it at the top of `server.js`).
+        ```javascript
+        // At the very top of server.js
+        require('dotenv').config();
+        // ...
+        const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY || 'your-fallback-secret-key';
+        // ... then use JWT_SECRET_KEY in jwt.sign and jwt.verify
+        ```
+        And create a `.env` file in your `backend` directory:
+        ```
+        JWT_SECRET_KEY="your_generated_secure_key_here"
+        ```
+        Add `.env` to your `.gitignore`!
+
+4.  **Run the backend server:**
+    ```bash
+    node server.js
+    ```
+    You should see "Server started on port 5000" (or your configured port). Keep this terminal window open.
+
+### Frontend Setup
+
+1.  **Navigate to the frontend directory:**
+    ```bash
+    cd ../my-cctv-app
+    ```
+2.  **Install frontend dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Start the React development server:**
+    ```bash
+    npm start
+    ```
+    This will open your application in your default web browser (usually `http://localhost:3000`).
+
+## Usage
+
+1.  **Register a User:**
+    * Go to the signup page (`/signup` or similar path in your app).
+    * Fill in the details and register. The user data will be stored in your MongoDB `cctv` database.
+2.  **Log In:**
+    * Use the registered credentials to log in.
+    * Upon successful login, a JWT will be stored in your browser's `localStorage`.
+3.  **View/Upload Recordings:**
+    * Navigate to the dashboard or recordings page.
+    * If implemented, you can upload new recording metadata.
+    * You should see recordings fetched from the MongoDB backend, associated with your logged-in user.
+4.  **Explore with MongoDB Compass:**
+    * Connect MongoDB Compass to `mongodb://localhost:27017/cctv`.
+    * You can browse the `users` and `recordings` collections to see the data stored by your application.
+
+## API Endpoints (Backend)
+
+* `POST /api/signup`: Register a new user.
+* `POST /api/signin`: Log in an existing user and receive a JWT.
+* `GET /api/recordings`: Get all recordings for the authenticated user. (Requires JWT in `Authorization: Bearer <token>`)
+* `POST /api/recordings`: Upload new recording metadata. (Requires JWT)
+
+## Contributing
+
+Feel free to fork this repository and submit pull requests.
+
+## License
+
+This project is open-source and available under the [MIT License](LICENSE). (Create a `LICENSE` file in your root directory if you want to specify a license)
+
+---
+
+**Note:** This README assumes a basic structure and functionality. You might need to adjust specific paths, component names, or API endpoint details based on your actual project implementation. Remember to create the `LICENSE` file if you mention it.
